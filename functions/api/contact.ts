@@ -1,12 +1,8 @@
-import { handleContactPost } from "../../worker/contact";
+import { handleContactPost, type ContactEnv } from "../../worker/contact";
 
 export async function onRequestPost(context: {
   request: Request;
-  env: {
-    CONTACT_TO_EMAIL?: string;
-    RESEND_API_KEY?: string;
-    RESEND_FROM_EMAIL?: string;
-  };
+  env: ContactEnv;
 }): Promise<Response> {
   return handleContactPost(context.request, context.env);
 }

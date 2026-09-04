@@ -28,8 +28,20 @@ function asText(value: unknown, max: number): string {
   return value.trim().slice(0, max);
 }
 
+function asHeaderSafe(value: unknown, max: number): string {
+  return asText(value, max)
+    .replace(/[\u0000-\u001f\u007f]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function isEmail(value: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  if (value.length === 0 || value.length > MAX_EMAIL) return false;
+  if (/[\s"<>/?&\\,;:()[\]{}]/.test(value)) return false;
+  if (value.includes("..")) return false;
+  return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?(?:\.[a-zA-Z]{2,63})+$/.test(
+    value,
+  );
 }
 
 function escapeHtml(value: string): string {
@@ -85,8 +97,8 @@ export async function handleContactPost(
     return json({ ok: true });
   }
 
-  const nome = asText(body.nome, MAX_NOME);
-  const email = asText(body.email, MAX_EMAIL);
+  const nome = asHeaderSafe(body.nome, MAX_NOME);
+  const email = asHeaderSafe(body.email, MAX_EMAIL);
   const messaggio = asText(body.messaggio, MAX_MESSAGGIO);
 
   if (!nome || !email || !messaggio) {
@@ -98,14 +110,10 @@ export async function handleContactPost(
   }
 
   if (!CONTACT_TO_EMAIL || !RESEND_API_KEY) {
-    const missing = [
-      !CONTACT_TO_EMAIL ? "CONTACT_TO_EMAIL" : null,
-      !RESEND_API_KEY ? "RESEND_API_KEY" : null,
-    ].filter(Boolean);
     return json(
       {
         ok: false,
-        error: `Invio email non configurato. Manca a runtime: ${missing.join(", ")}. Impostale come Secret nel Worker (Settings → Variables and Secrets) e premi Deploy.`,
+        error: `Errore nell'invio dell'email lato sito. Riprova più tardi.`,
       },
       503,
     );
