@@ -687,6 +687,16 @@ textarea {
   text-align: center;
 }
 
+.catalog-status,
+.publish-date {
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.publish-date {
+  font-weight: 700;
+}
+
 @media (max-width: 800px) {
   .book-layout,
   .about-grid,

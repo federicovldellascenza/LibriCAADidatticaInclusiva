@@ -1,9 +1,5 @@
-export type ContactEnv = {
-  CONTACT_TO_EMAIL?: string;
-  RESEND_API_KEY?: string;
-  RESEND_FROM_EMAIL?: string;
-  RESEND_FROM_MAIL?: string;
-};
+import type { Env } from "./env";
+import { json } from "./json";
 
 type Body = {
   nome?: unknown;
@@ -15,13 +11,6 @@ type Body = {
 const MAX_NOME = 120;
 const MAX_EMAIL = 120;
 const MAX_MESSAGGIO = 4000;
-
-function json(data: unknown, status = 200): Response {
-  return new Response(JSON.stringify(data), {
-    status,
-    headers: { "Content-Type": "application/json; charset=utf-8" },
-  });
-}
 
 function asText(value: unknown, max: number): string {
   if (typeof value !== "string") return "";
@@ -81,7 +70,7 @@ function buildEmailBody(nome: string, email: string, messaggio: string): {
 
 export async function handleContactPost(
   request: Request,
-  env: ContactEnv,
+  env: Env,
 ): Promise<Response> {
   const { CONTACT_TO_EMAIL, RESEND_API_KEY, RESEND_FROM_EMAIL, RESEND_FROM_MAIL } =
     env;

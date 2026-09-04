@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { CoverPlaceholder } from "../components/CoverPlaceholder";
-import { libri } from "../data/libri";
-
-const inEvidenza = libri.slice(0, 2);
+import { useLibri } from "../hooks/useLibri";
 
 export function Home() {
+  const { libri, error, loading } = useLibri();
+  const inEvidenza = (libri ?? []).slice(0, 2);
+
   return (
     <>
       <section className="hero" aria-labelledby="titolo-sito">
@@ -56,15 +57,25 @@ export function Home() {
         </div>
         <div className="featured-row">
           <div className="featured-covers">
-            {inEvidenza.map((libro, index) => (
-              <Link
-                key={libro.slug}
-                className={`featured-cover featured-cover-${index}`}
-                to={`/libri/${libro.slug}`}
-              >
-                <CoverPlaceholder libro={libro} />
-              </Link>
-            ))}
+            {loading ? (
+              <p className="catalog-status">Caricamento titoli…</p>
+            ) : error ? (
+              <p className="catalog-status">{error}</p>
+            ) : inEvidenza.length === 0 ? (
+              <p className="catalog-status">
+                Nessun titolo in evidenza al momento.
+              </p>
+            ) : (
+              inEvidenza.map((libro, index) => (
+                <Link
+                  key={libro.slug}
+                  className={`featured-cover featured-cover-${index}`}
+                  to={`/libri/${libro.slug}`}
+                >
+                  <CoverPlaceholder libro={libro} />
+                </Link>
+              ))
+            )}
           </div>
           <div className="featured-copy panel">
             <p>
