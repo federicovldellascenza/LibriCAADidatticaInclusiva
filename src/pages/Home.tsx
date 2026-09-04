@@ -12,10 +12,10 @@ export function Home() {
         <span className="hero-kicker">Didattica inclusiva</span>
         <h1 id="titolo-sito">Libri in CAA per la Didattica Inclusiva</h1>
         <p>
-          Un’iniziativa piccola e concreta: albi e materiali in Comunicazione
-          Aumentativa Alternativa per la scuola e per casa. Linguaggio chiaro,
-          pittogrammi, routine e storie che aiutano ogni bambino a capire,
-          scegliere e partecipare — senza isolare nessuno dal gruppo.
+        Strumenti editoriali pensati per rendere i saperi disciplinari accessibili a tutti. 
+        Grazie all'integrazione di simboli e testi fluidi, 
+        trasformano la lettura in un'esperienza inclusiva che azzera le barriere 
+        e restituisce a ogni alunno il piacere e l'autonomia dell'apprendimento.
         </p>
         <span className="blob blob-a" aria-hidden="true" />
         <span className="blob blob-b" aria-hidden="true" />
@@ -24,19 +24,22 @@ export function Home() {
 
       <section className="overview-grid" aria-label="Di che si tratta">
         <article className="panel overview-card">
-          <h2>CAA, in pratica</h2>
+          <h2>CAA</h2>
           <p>
-            Pittogrammi e frasi brevi per nominare emozioni, fare richieste e
-            seguire una sequenza. Strumenti da usare in classe, a casa o in
-            terapia, insieme all’adulto.
+          I libri con la CAA affiancano al testo scritto dei simboli visivi immediati.
+          Sono strumenti fondamentali per superare le barriere di decodifica, 
+          trasformare i concetti astratti in immagini accessibili e garantire a ogni 
+          alunno autonomia e inclusione reale nella lettura.
           </p>
         </article>
         <article className="panel overview-card">
-          <h2>Per la classe e per casa</h2>
+          <h2>Oltre ogni ostacolo per un sapere accessibile</h2>
           <p>
-            Materiali pensati per insegnanti, famiglie e compagni di banco:
-            stesso linguaggio, stessi simboli, meno interruzioni tra i
-            contesti.
+          Un progetto didattico che rimuove gli ostacoli alla comprensione 
+          attraverso testi semplificati, font ad alta leggibilità e simboli CAA. 
+          Ogni pagina è pensata per azzerare la frustrazione, valorizzare 
+          i punti di forza di ciascuno e garantire a ogni alunno un accesso equo, 
+          autonomo e gratificante alla conoscenza.
           </p>
         </article>
         <article className="panel overview-card">
