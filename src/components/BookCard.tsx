@@ -2,9 +2,14 @@ import { Link } from "react-router-dom";
 import type { Libro } from "../data/libri";
 import { CoverPlaceholder } from "./CoverPlaceholder";
 
-export function BookCard({ libro }: { libro: Libro }) {
+type Props = {
+  libro: Libro;
+  variant?: "grid" | "shelf";
+};
+
+export function BookCard({ libro, variant = "grid" }: Props) {
   return (
-    <Link className="book-card" to={`/libri/${libro.slug}`}>
+    <Link className={`book-card book-card-${variant}`} to={`/libri/${libro.slug}`}>
       <CoverPlaceholder libro={libro} />
       <div className="book-card-body">
         <h3>{libro.titolo}</h3>

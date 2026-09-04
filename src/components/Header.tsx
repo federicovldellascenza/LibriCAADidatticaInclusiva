@@ -25,6 +25,7 @@ export function Header() {
           <NavLink to="/" end>
             Home
           </NavLink>
+          <NavLink to="/libri">Libri</NavLink>
           <NavLink to="/chi-siamo">Chi siamo</NavLink>
         </nav>
       </div>

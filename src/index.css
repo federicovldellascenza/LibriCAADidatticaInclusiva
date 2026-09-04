@@ -182,6 +182,21 @@ main {
   flex-wrap: wrap;
 }
 
+.page-enter {
+  animation: page-in 0.45s ease both;
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .nav a {
   text-decoration: none;
   font-weight: 800;
@@ -191,6 +206,12 @@ main {
   border-radius: 999px;
   padding: 0.4rem 1rem;
   box-shadow: 3px 3px 0 var(--navy);
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nav a:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--navy);
 }
 
 .nav a:hover,
@@ -224,6 +245,7 @@ main {
 .hero p {
   max-width: 40rem;
   font-size: 1.15rem;
+  margin-bottom: 0;
 }
 
 .blob {
@@ -240,6 +262,7 @@ main {
   top: -1.5rem;
   right: 6rem;
   opacity: 0.85;
+  animation: float 7s ease-in-out infinite;
 }
 
 .blob-b {
@@ -249,6 +272,7 @@ main {
   bottom: 1.2rem;
   right: 1.4rem;
   border-radius: 45% 55% 40% 60%;
+  animation: float 5.5s ease-in-out infinite reverse;
 }
 
 .blob-c {
@@ -257,6 +281,17 @@ main {
   background: var(--verde);
   top: 1.5rem;
   right: 2rem;
+  animation: float 6.2s ease-in-out infinite 0.35s;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(8px, -10px);
+  }
 }
 
 .section-head {
@@ -284,7 +319,7 @@ main {
   box-shadow: var(--shadow);
   overflow: hidden;
   min-height: 100%;
-  transition: transform 0.15s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .book-card:hover {
@@ -311,12 +346,13 @@ main {
   color: var(--navy);
   font-size: 1.35rem;
   font-weight: 700;
+  line-height: 1.12;
   text-wrap: balance;
   margin: 0;
   background: rgb(255 253 247 / 0.88);
   border: 3px solid var(--navy);
-  border-radius: 1rem;
-  padding: 0.45rem 0.65rem;
+  border-radius: 0.85rem;
+  padding: 0.28rem 0.55rem;
 }
 
 .cover-blu { background: linear-gradient(160deg, var(--blu-soft), var(--blu)); }
@@ -378,6 +414,12 @@ main {
   box-shadow: var(--shadow);
   overflow: hidden;
   background: var(--paper);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cover-frame:hover {
+  transform: translateY(-4px);
+  box-shadow: 8px 8px 0 var(--navy);
 }
 
 .cover-frame .cover,
@@ -403,10 +445,12 @@ main {
   cursor: pointer;
   color: var(--navy);
   background: var(--white);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .btn:hover {
-  transform: translate(-1px, -1px);
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--navy);
 }
 
 .btn-amazon {
@@ -508,6 +552,133 @@ textarea {
   font-size: 0.95rem;
 }
 
+.text-link {
+  font-weight: 800;
+  color: var(--navy);
+  text-underline-offset: 0.22em;
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2.25rem;
+}
+
+.overview-card h2 {
+  font-size: 1.2rem;
+}
+
+.featured-row {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.featured-covers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.25rem 0 1.75rem;
+}
+
+.featured-cover {
+  width: min(220px, 44vw);
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  border: 4px solid var(--navy);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: var(--paper);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0s;
+}
+
+.featured-cover .cover {
+  min-height: 280px;
+  height: 100%;
+  border-bottom: 0;
+  padding: 1.1rem 1rem 1.85rem;
+}
+
+.featured-cover .cover-title {
+  font-size: 1.42rem;
+}
+
+.featured-cover-0 {
+  transform: rotate(-6deg) translateX(16px);
+  z-index: 1;
+}
+
+.featured-cover-1 {
+  transform: rotate(7deg) translateX(-16px);
+  z-index: 2;
+}
+
+.featured-cover:hover,
+.featured-cover:focus-visible {
+  z-index: 3;
+  transform: rotate(0deg) translateY(-8px);
+  box-shadow: 8px 8px 0 var(--navy);
+}
+
+.catalog-intro {
+  max-width: 38rem;
+  margin-bottom: 0.35rem;
+}
+
+.catalog-shelf {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
+.catalog-scroller {
+  display: flex;
+  gap: 1.15rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: max(1rem, calc(50vw - 560px));
+  padding: 0.85rem max(1rem, calc(50vw - 560px)) 1.8rem;
+  scrollbar-color: var(--navy) var(--giallo-soft);
+}
+
+.catalog-scroller::-webkit-scrollbar {
+  height: 10px;
+}
+
+.catalog-scroller::-webkit-scrollbar-thumb {
+  background: var(--navy);
+  border-radius: 999px;
+}
+
+.catalog-scroller::-webkit-scrollbar-track {
+  background: var(--giallo-soft);
+  border-radius: 999px;
+}
+
+.book-card-shelf {
+  flex: 0 0 min(260px, 78vw);
+  min-height: auto;
+  scroll-snap-align: start;
+  animation: page-in 0.5s ease both;
+}
+
+.book-card-shelf:nth-child(2) {
+  animation-delay: 0.06s;
+}
+
+.book-card-shelf:nth-child(3) {
+  animation-delay: 0.12s;
+}
+
+.book-card-shelf:nth-child(4) {
+  animation-delay: 0.18s;
+}
+
 .empty {
   background: var(--paper);
   border: 4px dashed var(--navy);
@@ -518,7 +689,9 @@ textarea {
 
 @media (max-width: 800px) {
   .book-layout,
-  .about-grid {
+  .about-grid,
+  .featured-row,
+  .overview-grid {
     grid-template-columns: 1fr;
   }
 
@@ -532,6 +705,10 @@ textarea {
   .cover-frame img {
     min-height: 260px;
     height: 260px;
+  }
+
+  .featured-covers {
+    padding-bottom: 0.5rem;
   }
 }
 

@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Layout } from "./components/Layout";
+import { Catalogo } from "./pages/Catalogo";
 import { ChiSiamo } from "./pages/ChiSiamo";
 import { Home } from "./pages/Home";
 import { Libro } from "./pages/Libro";
@@ -11,8 +12,9 @@ export default function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/chi-siamo" element={<ChiSiamo />} />
+          <Route path="/libri" element={<Catalogo />} />
           <Route path="/libri/:slug" element={<Libro />} />
+          <Route path="/chi-siamo" element={<ChiSiamo />} />
           <Route path="*" element={<NonTrovata />} />
         </Route>
       </Routes>

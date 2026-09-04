@@ -11,8 +11,8 @@ export function Libro() {
       <div className="empty">
         <h1>Libro non trovato</h1>
         <p>Questo titolo non è in catalogo, oppure il link non è corretto.</p>
-        <Link className="btn" to="/">
-          Torna alla home
+        <Link className="btn" to="/libri">
+          Torna ai libri
         </Link>
       </div>
     );
