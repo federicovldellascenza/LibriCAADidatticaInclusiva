@@ -1,0 +1,4 @@
+CONTACT_TO_EMAIL=tua-email@esempio.it
+RESEND_API_KEY=re_xxxxxxxx
+# Opzionale: mittente verificato su Resend. In prova si può usare onboarding@resend.dev
+RESEND_FROM_EMAIL=Libri CAA <onboarding@resend.dev>
