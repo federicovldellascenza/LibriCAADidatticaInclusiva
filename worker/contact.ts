@@ -86,12 +86,18 @@ export async function handleContactPost(
   const { CONTACT_TO_EMAIL, RESEND_API_KEY, RESEND_FROM_EMAIL, RESEND_FROM_MAIL } =
     env;
 
-  let body: Body;
+  let parsed: unknown;
   try {
-    body = (await request.json()) as Body;
+    parsed = await request.json();
   } catch {
     return json({ ok: false, error: "Richiesta non valida." }, 400);
   }
+
+  if (parsed === null || typeof parsed !== "object" || Array.isArray(parsed)) {
+    return json({ ok: false, error: "Richiesta non valida." }, 400);
+  }
+
+  const body = parsed as Body;
 
   if (asText(body.website, 200)) {
     return json({ ok: true });

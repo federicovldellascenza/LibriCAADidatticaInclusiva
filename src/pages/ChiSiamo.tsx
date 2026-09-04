@@ -33,10 +33,8 @@ export function ChiSiamo() {
       if (!response.ok || !payload?.ok) {
         setStatus("err");
         setMessage(
-          response.status === 404
-            ? "Il form si attiva dopo il deploy su Cloudflare, oppure in locale con npm run pages."
-            : (payload?.error ??
-                "Non è stato possibile inviare il messaggio. Riprova più tardi."),
+          payload?.error ??
+            "Non è stato possibile inviare il messaggio. Riprova più tardi.",
         );
         return;
       }
@@ -47,7 +45,7 @@ export function ChiSiamo() {
     } catch {
       setStatus("err");
       setMessage(
-        "Connessione non riuscita. Se stai usando npm run dev, il form funziona con npm run pages oppure dopo il deploy su Cloudflare.",
+        "Connessione non riuscita. In locale il form funziona con npm run dev:cf, oppure sul sito pubblicato.",
       );
     }
   }
@@ -80,9 +78,8 @@ export function ChiSiamo() {
         <section className="panel" aria-labelledby="contatti-titolo">
           <h2 id="contatti-titolo">Scrivici</h2>
           <p>
-            Domande sui materiali, adozioni in classe, o una collaborazione:
-            compila il modulo. L’indirizzo di destinazione verrà configurato in
-            seguito su Cloudflare.
+            Domande sui materiali, adozioni in classe o una collaborazione:
+            compila il modulo. Ti risponderemo all’indirizzo che indichi.
           </p>
           <form className="form" onSubmit={onSubmit}>
             <label>
