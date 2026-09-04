@@ -46,7 +46,9 @@ export function Home() {
           <h2>Rispetto prima di tutto</h2>
           <p>
             Ogni bambino comunica a modo suo. I libri vogliono essere un ponte,
-            non una ricetta unica né un protocollo da applicare a tutti.
+            non una ricetta unica né un protocollo da applicare a tutti. 
+            Materiali pensati per insegnanti, famiglie e compagni di banco: 
+            stesso linguaggio, stessi simboli, meno interruzioni tra i contesti.
           </p>
         </article>
       </section>

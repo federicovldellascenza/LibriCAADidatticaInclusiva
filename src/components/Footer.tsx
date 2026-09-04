@@ -7,7 +7,7 @@ export function Footer() {
         </p>
         <p>
           Materiali in Comunicazione Aumentativa Alternativa per insegnanti,
-          famiglie e bambini. I testi di queste pagine sono placeholder.
+          famiglie e bambini.
         </p>
       </div>
     </footer>
