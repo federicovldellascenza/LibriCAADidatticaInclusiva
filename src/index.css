@@ -209,14 +209,16 @@ main {
   transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.nav a:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 5px 5px 0 var(--navy);
+.nav a[aria-current="page"] {
+  background: var(--blu);
+  color: var(--white);
 }
 
-.nav a:hover,
-.nav a[aria-current="page"] {
+.nav a:hover {
   background: var(--giallo);
+  color: var(--navy);
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--navy);
 }
 
 .hero {
