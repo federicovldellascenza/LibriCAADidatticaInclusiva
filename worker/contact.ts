@@ -2,6 +2,7 @@ export type ContactEnv = {
   CONTACT_TO_EMAIL?: string;
   RESEND_API_KEY?: string;
   RESEND_FROM_EMAIL?: string;
+  RESEND_FROM_MAIL?: string;
 };
 
 type Body = {
@@ -35,7 +36,8 @@ export async function handleContactPost(
   request: Request,
   env: ContactEnv,
 ): Promise<Response> {
-  const { CONTACT_TO_EMAIL, RESEND_API_KEY, RESEND_FROM_EMAIL } = env;
+  const { CONTACT_TO_EMAIL, RESEND_API_KEY, RESEND_FROM_EMAIL, RESEND_FROM_MAIL } =
+    env;
 
   let body: Body;
   try {
@@ -71,7 +73,8 @@ export async function handleContactPost(
     );
   }
 
-  const from = RESEND_FROM_EMAIL || "Libri CAA <onboarding@resend.dev>";
+  const from =
+    RESEND_FROM_EMAIL || RESEND_FROM_MAIL || "Libri CAA <onboarding@resend.dev>";
   const text = [`Nome: ${nome}`, `Email: ${email}`, "", messaggio].join("\n");
 
   const resendResponse = await fetch("https://api.resend.com/emails", {
