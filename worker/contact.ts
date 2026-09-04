@@ -32,6 +32,41 @@ function isEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function buildEmailBody(nome: string, email: string, messaggio: string): {
+  text: string;
+  html: string;
+} {
+  const text = [
+    "Nuovo messaggio dal form del sito",
+    "",
+    `Nome: ${nome}`,
+    `Email di chi scrive: ${email}`,
+    "",
+    "Messaggio:",
+    messaggio,
+  ].join("\n");
+
+  const html = `
+    <p><strong>Nuovo messaggio dal form del sito</strong></p>
+    <p>
+      <strong>Nome:</strong> ${escapeHtml(nome)}<br />
+      <strong>Email di chi scrive:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>
+    </p>
+    <p><strong>Messaggio:</strong></p>
+    <p>${escapeHtml(messaggio).replaceAll("\n", "<br />")}</p>
+  `.trim();
+
+  return { text, html };
+}
+
 export async function handleContactPost(
   request: Request,
   env: ContactEnv,
@@ -78,7 +113,7 @@ export async function handleContactPost(
 
   const from =
     RESEND_FROM_EMAIL || RESEND_FROM_MAIL || "Libri CAA <onboarding@resend.dev>";
-  const text = [`Nome: ${nome}`, `Email: ${email}`, "", messaggio].join("\n");
+  const { text, html } = buildEmailBody(nome, email, messaggio);
 
   const resendResponse = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -90,8 +125,9 @@ export async function handleContactPost(
       from,
       to: [CONTACT_TO_EMAIL],
       reply_to: email,
-      subject: `Messaggio dal sito — ${nome}`,
+      subject: `Messaggio dal sito — ${nome} <${email}>`,
       text,
+      html,
     }),
   });
 
