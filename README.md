@@ -1,34 +1,27 @@
 # Libri in CAA per la Didattica Inclusiva
 
-Sito statico in React + Vite, con una sola Cloudflare Pages Function per il form contatti.
+Sito React + Vite su Cloudflare Workers (asset statici + una rotta API per il form).
 
-## Sviluppo locale
+## Come funziona il form
 
-```bash
-npm install
-npm run dev
-```
+1. Su **Chi siamo** il browser invia un JSON `{ nome, email, messaggio }` a `POST /api/contact`
+2. Il Worker Cloudflare (`worker/index.ts`) valida i campi
+3. Se sono impostati i secret, chiama [Resend](https://resend.com) e spedisce la mail a `CONTACT_TO_EMAIL` (con `reply_to` = email di chi ha scritto)
 
-Il form su `/chi-siamo` chiama `/api/contact`. Con `npm run dev` quella rotta non esiste: per provarlo insieme al sito:
+`npm run dev` (solo Vite) **non** espone `/api/contact`. Per provarlo in locale:
 
 1. Copia `.dev.vars.example` in `.dev.vars` e inserisci email e chiave Resend
-2. Avvia `npm run pages` (build + `wrangler pages dev dist`)
+2. `npm run dev:cf` (build + `wrangler dev`)
 
-## Pubblicare su Cloudflare Pages
+## Secret su Cloudflare
 
-1. Carica il repository su GitHub
-2. In Cloudflare: **Workers & Pages → Create → Pages → Connect to Git**
-3. Impostazioni di build:
-   - Framework preset: **Vite** (oppure None)
-   - Build command: `npm run build`
-   - Build output directory: `dist`
-   - Node: `20` (c’è già `.nvmrc`)
-4. Variabili (Settings → Environment variables / Secrets):
-   - `CONTACT_TO_EMAIL` — casella che riceve i messaggi
-   - `RESEND_API_KEY` — chiave API di [Resend](https://resend.com)
-   - `RESEND_FROM_EMAIL` (opzionale) — mittente verificato, es. `Libri CAA <info@tuodominio.it>`
+Nel Worker **libricaadidatticainclusiva** → Settings → Variables and Secrets:
 
-Le route SPA (`/libri/...`, `/chi-siamo`) funzionano grazie a `public/_redirects`. La funzione in `functions/api/contact.ts` viene pubblicata in automatico su `/api/contact`.
+- `CONTACT_TO_EMAIL` — casella che riceve i messaggi
+- `RESEND_API_KEY` — chiave API Resend (tipo Secret)
+- `RESEND_FROM_EMAIL` (opzionale) — mittente verificato su Resend, es. `Libri CAA <info@tuodominio.it>`
+
+Senza questi valori il form risponde 503 (configurazione mancante), non un invio finto.
 
 ## Contenuti da sostituire
 
