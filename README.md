@@ -15,13 +15,19 @@ Sito React + Vite su Cloudflare Workers (asset statici + una rotta API per il fo
 
 ## Secret su Cloudflare
 
-Nel Worker **libricaadidatticainclusiva** → Settings → Variables and Secrets:
+Devono essere **runtime** del Worker **libricaadidatticainclusiva**, non “Build variables”.
 
-- `CONTACT_TO_EMAIL` — casella che riceve i messaggi
-- `RESEND_API_KEY` — chiave API Resend (tipo Secret)
-- `RESEND_FROM_EMAIL` (opzionale) — mittente verificato su Resend, es. `Libri CAA <info@tuodominio.it>`
+1. Workers & Pages → apri il Worker (non un progetto Pages omonimo)
+2. **Settings → Variables and Secrets** (sezione runtime)
+3. Aggiungi, con i nomi esatti:
+   - `CONTACT_TO_EMAIL` — tipo **Secret**
+   - `RESEND_API_KEY` — tipo **Secret**
+   - `RESEND_FROM_MAIL` o `RESEND_FROM_EMAIL` — Variable va bene
+4. In fondo alla schermata premi **Deploy**. Senza questo passo il form continua a rispondere 503.
 
-Senza questi valori il form risponde 503 (configurazione mancante), non un invio finto.
+Se le hai messe come Variable (non Secret), un deploy da Git può cancellarle: Wrangler riscrive le var da `wrangler.toml`, che è vuoto. I Secret restano. Per questo entrambe le chiavi vanno come Secret.
+
+Il comando di deploy del repo usa `--keep-vars` per non cancellare le Variable del dashboard.
 
 ## Contenuti da sostituire
 

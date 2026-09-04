@@ -63,11 +63,14 @@ export async function handleContactPost(
   }
 
   if (!CONTACT_TO_EMAIL || !RESEND_API_KEY) {
+    const missing = [
+      !CONTACT_TO_EMAIL ? "CONTACT_TO_EMAIL" : null,
+      !RESEND_API_KEY ? "RESEND_API_KEY" : null,
+    ].filter(Boolean);
     return json(
       {
         ok: false,
-        error:
-          "Invio email non configurato. Imposta CONTACT_TO_EMAIL e RESEND_API_KEY su Cloudflare (Variables and Secrets).",
+        error: `Invio email non configurato. Manca a runtime: ${missing.join(", ")}. Impostale come Secret nel Worker (Settings → Variables and Secrets) e premi Deploy.`,
       },
       503,
     );

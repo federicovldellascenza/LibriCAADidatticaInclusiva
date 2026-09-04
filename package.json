@@ -8,7 +8,8 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "pages": "npm run build && wrangler pages dev dist",
-    "dev:cf": "npm run build && wrangler dev"
+    "dev:cf": "npm run build && wrangler dev",
+    "deploy": "npm run build && wrangler deploy --keep-vars"
   },
   "dependencies": {
     "react": "^19.1.1",
