@@ -96,12 +96,10 @@ export async function handleContactPost(
   });
 
   if (!resendResponse.ok) {
-    // Estraiamo il dettaglio esatto restituito dall'API di Resend
-    const errorDetails = await resendResponse.text();
     return json(
       {
         ok: false,
-        error: `Resend error (${resendResponse.status}): ${errorDetails}`,
+        error: "Il servizio di posta ha rifiutato l'invio. Riprova più tardi.",
       },
       502,
     );
