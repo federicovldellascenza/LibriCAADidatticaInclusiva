@@ -330,17 +330,26 @@ main {
 }
 
 .cover {
-  min-height: 210px;
+  aspect-ratio: 2 / 3;
+  min-height: 0;
   display: flex;
   align-items: flex-end;
   padding: 1rem;
   border-bottom: 4px solid var(--navy);
 }
 
-.cover img {
+.cover-photo {
+  padding: 0;
+  aspect-ratio: auto;
+  display: block;
+  line-height: 0;
+}
+
+.cover-photo img {
   width: 100%;
-  height: 210px;
-  object-fit: cover;
+  height: auto;
+  display: block;
+  object-fit: contain;
 }
 
 .cover-title {
@@ -425,12 +434,16 @@ main {
 }
 
 .cover-frame .cover,
-.cover-frame img {
-  min-height: 380px;
-  height: 380px;
-  width: 100%;
-  object-fit: cover;
+.cover-frame .cover-photo {
+  min-height: 0;
+  height: auto;
   border-bottom: 0;
+}
+
+.cover-frame img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 .btn {
@@ -600,10 +613,14 @@ textarea {
 }
 
 .featured-cover .cover {
-  min-height: 280px;
-  height: 100%;
+  min-height: 0;
+  height: auto;
   border-bottom: 0;
   padding: 1.1rem 1rem 1.85rem;
+}
+
+.featured-cover .cover-photo {
+  padding: 0;
 }
 
 .featured-cover .cover-title {
@@ -714,9 +731,10 @@ textarea {
   }
 
   .cover-frame .cover,
+  .cover-frame .cover-photo,
   .cover-frame img {
-    min-height: 260px;
-    height: 260px;
+    min-height: 0;
+    height: auto;
   }
 
   .featured-covers {

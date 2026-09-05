@@ -8,12 +8,14 @@ type Props = {
 export function CoverPlaceholder({ libro, large = false }: Props) {
   if (libro.copertina) {
     return (
-      <img
-        src={libro.copertina}
-        alt={`Copertina di ${libro.titolo}`}
-        width={large ? 320 : 240}
-        height={large ? 380 : 210}
-      />
+      <div className="cover cover-photo">
+        <img
+          src={libro.copertina}
+          alt={`Copertina di ${libro.titolo}`}
+          width={large ? 400 : 240}
+          height={large ? 600 : 360}
+        />
+      </div>
     );
   }
 
