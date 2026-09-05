@@ -1,4 +1,5 @@
 import { Link, useParams } from "react-router-dom";
+import { HtmlContent } from "../components/HtmlContent";
 import { CoverPlaceholder } from "../components/CoverPlaceholder";
 import { formatDataPubblicazione } from "../data/libri";
 import { useLibro } from "../hooks/useLibri";
@@ -55,7 +56,7 @@ export function Libro() {
               Pubblicato il {formatDataPubblicazione(libro.dataPubblicazione)}
             </p>
           ) : null}
-          <p>{libro.descrizione}</p>
+          <HtmlContent html={libro.descrizione} />
           {libro.amazonUrl ? (
             <p>
               <a

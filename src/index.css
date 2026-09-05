@@ -381,6 +381,33 @@ main {
   margin-bottom: 0.75rem;
 }
 
+.rich-text {
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.rich-text p {
+  margin: 0 0 1rem;
+  color: var(--muted);
+}
+
+.rich-text ul,
+.rich-text ol {
+  margin: 0 0 1rem;
+  padding-left: 1.2rem;
+  color: var(--muted);
+}
+
+.rich-text li {
+  margin-bottom: 0.45rem;
+}
+
+.rich-text strong,
+.rich-text b {
+  color: var(--navy);
+  font-weight: 800;
+}
+
 .chip-row,
 .tag-list {
   display: flex;
