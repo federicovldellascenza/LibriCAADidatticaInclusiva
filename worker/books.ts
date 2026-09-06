@@ -147,27 +147,34 @@ export async function handleBooksGet(env: Env): Promise<Response> {
   }
 }
 
-export async function handleBookBySlugGet(env: Env, slugParam: string): Promise<Response> {
+export async function getBookBySlug(
+  env: Env,
+  slugParam: string,
+): Promise<LibroDto | null> {
   const slug = slugify(decodeURIComponent(slugParam));
-  if (!slug) {
-    return json({ ok: false, error: "Libro non trovato." }, 404);
+  if (!slug) return null;
+
+  let row: BookRow | null = null;
+  try {
+    row = await selectBookBySlug(env.DB, slug);
+  } catch (error) {
+    if (!isMissingSlugColumn(error)) throw error;
   }
 
+  if (!row) {
+    const rows = await listRows(env.DB);
+    row = rows.find((candidate) => rowSlug(candidate) === slug) ?? null;
+  }
+
+  const book = row ? mapRow(row) : null;
+  if (!book || book.slug !== slug) return null;
+  return book;
+}
+
+export async function handleBookBySlugGet(env: Env, slugParam: string): Promise<Response> {
   try {
-    let row: BookRow | null = null;
-    try {
-      row = await selectBookBySlug(env.DB, slug);
-    } catch (error) {
-      if (!isMissingSlugColumn(error)) throw error;
-    }
-
-    if (!row) {
-      const rows = await listRows(env.DB);
-      row = rows.find((candidate) => rowSlug(candidate) === slug) ?? null;
-    }
-
-    const book = row ? mapRow(row) : null;
-    if (!book || book.slug !== slug) {
+    const book = await getBookBySlug(env, slugParam);
+    if (!book) {
       return json({ ok: false, error: "Libro non trovato." }, 404);
     }
 
@@ -179,5 +186,10 @@ export async function handleBookBySlugGet(env: Env, slugParam: string): Promise<
 
 export function booksPathSlug(pathname: string): string | null {
   const match = pathname.match(/^\/api\/books\/([^/]+)$/);
+  return match ? match[1] : null;
+}
+
+export function pageBookSlug(pathname: string): string | null {
+  const match = pathname.match(/^\/libri\/([^/]+)$/);
   return match ? match[1] : null;
 }

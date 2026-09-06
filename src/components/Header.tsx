@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 function BrandMark() {
@@ -10,23 +11,74 @@ function BrandMark() {
   );
 }
 
-export function Header() {
+function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
   return (
-    <header className="site-header">
+    <>
+      <NavLink to="/" end onClick={onNavigate}>
+        Home
+      </NavLink>
+      <NavLink to="/libri" onClick={onNavigate}>
+        Libri
+      </NavLink>
+      <NavLink to="/chi-siamo" onClick={onNavigate}>
+        Chi siamo
+      </NavLink>
+    </>
+  );
+}
+
+export function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (media.matches) return;
+
+    let lastY = window.scrollY;
+    function onScroll() {
+      const y = window.scrollY;
+      const goingDown = y > lastY && y > 48;
+      setHidden(goingDown);
+      lastY = y;
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    function onKey(event: KeyboardEvent) {
+      if (event.key === "Escape") setMenuOpen(false);
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
+
+  const headerHidden = hidden && !menuOpen;
+
+  return (
+    <header className={`site-header${headerHidden ? " site-header-hidden" : ""}`}>
       <div className="header-inner">
-        <NavLink to="/" className="brand">
+        <NavLink to="/" className="brand" onClick={() => setMenuOpen(false)}>
           <BrandMark />
           <span>
             <p className="logo-title">Libri in CAA</p>
             <p className="logo-sub">per la Didattica Inclusiva</p>
           </span>
         </NavLink>
-        <nav className="nav" aria-label="Principale">
-          <NavLink to="/" end>
-            Home
-          </NavLink>
-          <NavLink to="/libri">Libri</NavLink>
-          <NavLink to="/chi-siamo">Chi siamo</NavLink>
+        <button
+          type="button"
+          className="menu-toggle"
+          aria-expanded={menuOpen}
+          aria-controls="menu-principale"
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          {menuOpen ? "Chiudi" : "Menu"}
+        </button>
+        <nav id="menu-principale" className={`nav${menuOpen ? " nav-open" : ""}`} aria-label="Principale">
+          <NavLinks onNavigate={() => setMenuOpen(false)} />
         </nav>
       </div>
     </header>

@@ -1,8 +1,15 @@
 import { BookCard } from "../components/BookCard";
 import { useLibri } from "../hooks/useLibri";
+import { usePageMeta } from "../hooks/usePageMeta";
 
 export function Catalogo() {
   const { libri, error, loading } = useLibri();
+  usePageMeta({
+    title: "Libri facilitati e storie CAA | Didattica inclusiva",
+    description:
+      "Scaffale di libri in CAA, storie CAA e libri facilitati per bambini: materiale CAA per la classe e per casa.",
+    path: "/libri",
+  });
 
   return (
     <>

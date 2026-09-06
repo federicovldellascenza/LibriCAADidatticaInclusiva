@@ -1,8 +1,15 @@
 import { useState, type FormEvent } from "react";
+import { usePageMeta } from "../hooks/usePageMeta";
 
 type Status = "idle" | "sending" | "ok" | "err";
 
 export function ChiSiamo() {
+  usePageMeta({
+    title: "Chi siamo | Libri in CAA — Roberta Panaccione",
+    description:
+      "Il progetto di libri in CAA e materiale CAA di Roberta Panaccione: didattica inclusiva, pittogrammi e libri facilitati per la scuola e per casa.",
+    path: "/chi-siamo",
+  });
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
 

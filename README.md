@@ -46,10 +46,10 @@ File principali:
 
 - `src/` — pagine e componenti React
 - `src/data/libri.ts` — tipo `Libro` e fetch verso l’API
-- `worker/index.ts` — `GET /api/books`, `GET /api/books/:slug`, `POST /api/contact`
+- `worker/index.ts` — `GET /api/books`, `GET /api/books/:slug`, `POST /api/contact`, SEO HTML su `/libri/:slug`
 - `worker/books.ts` — `SELECT` su D1 e mapping JSON
 - `worker/contact.ts` — validazione e chiamata a Resend
-- `wrangler.toml` — Worker `libricaadidatticainclusiva`, cartella `dist`, SPA, Worker prima su `/api/*`, binding D1 `DB`
+- `wrangler.toml` — Worker `libricaadidatticainclusiva`, cartella `dist`, SPA, Worker prima su `/api/*` e `/libri/*`, binding D1 `DB`
 
 ---
 
@@ -151,4 +151,5 @@ Con il mittente di prova Resend (`onboarding@resend.dev`) l’invio è limitato 
 
 - Testi in Chi siamo
 - Righe in D1 (`books`): slug, descrizioni, `tags_json`, `tools_json`, `link_buy`
-- File copertina in `public/` (o CDN) allineati a `path_cover` (es. `/covers/cover1.jpg`)
+- File copertina in `public/` (o CDN) allineati a `path_cover` (es. `/copertine/cover_storia_geografia_3.png`)
+- Slug in `public/sitemap.xml` quando aggiungi o rinomini un titolo (il file è statico, non si aggiorna da D1)

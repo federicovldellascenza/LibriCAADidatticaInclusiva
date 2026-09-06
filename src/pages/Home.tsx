@@ -1,10 +1,17 @@
 import { Link } from "react-router-dom";
 import { CoverPlaceholder } from "../components/CoverPlaceholder";
 import { useLibri } from "../hooks/useLibri";
+import { usePageMeta } from "../hooks/usePageMeta";
 
 export function Home() {
   const { libri, error, loading } = useLibri();
   const inEvidenza = (libri ?? []).slice(0, 2);
+  usePageMeta({
+    title: "Libri in CAA per bambini | Didattica inclusiva",
+    description:
+      "Libri in CAA per bambini, storie CAA e libri facilitati: materiale CAA in Comunicazione Aumentativa Alternativa per la didattica inclusiva a scuola e a casa.",
+    path: "/",
+  });
 
   return (
     <>

@@ -1,12 +1,25 @@
 import { Link, useParams } from "react-router-dom";
 import { HtmlContent } from "../components/HtmlContent";
+import { JsonLd } from "../components/JsonLd";
 import { CoverPlaceholder } from "../components/CoverPlaceholder";
 import { formatDataPubblicazione } from "../data/libri";
 import { useLibro } from "../hooks/useLibri";
+import { usePageMeta } from "../hooks/usePageMeta";
+import { SITE_URL, stripHtmlToText } from "../seo";
 
 export function Libro() {
   const { slug } = useParams();
   const { libro, error, loading } = useLibro(slug);
+  const path = slug ? `/libri/${slug}` : "/libri";
+  usePageMeta({
+    title: libro ? `${libro.titolo} | Libro in CAA` : "Libro in CAA | Didattica inclusiva",
+    description: libro
+      ? stripHtmlToText(libro.sottotitolo || libro.descrizione) ||
+        `${libro.titolo}: libro in CAA e materiale CAA per la didattica inclusiva.`
+      : "Scheda di un libro in CAA per la didattica inclusiva.",
+    path,
+    image: libro?.copertina,
+  });
 
   if (loading) {
     return (
@@ -43,6 +56,23 @@ export function Libro() {
 
   return (
     <article>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Book",
+          name: libro.titolo,
+          description: stripHtmlToText(libro.descrizione, 300),
+          url: `${SITE_URL}/libri/${libro.slug}`,
+          inLanguage: "it-IT",
+          author: { "@type": "Person", name: "Roberta Panaccione" },
+          image: libro.copertina
+            ? libro.copertina.startsWith("http")
+              ? libro.copertina
+              : `${SITE_URL}${libro.copertina}`
+            : undefined,
+          datePublished: libro.dataPubblicazione,
+        }}
+      />
       <div className="book-layout">
         <div className="cover-frame">
           <CoverPlaceholder libro={libro} large />

@@ -6,8 +6,9 @@ export function Footer() {
           <strong>Libri in CAA per la Didattica Inclusiva</strong>
         </p>
         <p>
-          Materiali in Comunicazione Aumentativa Alternativa per insegnanti,
-          famiglie e bambini.
+          Libri in CAA per bambini, storie CAA e libri facilitati: materiale CAA
+          in Comunicazione Aumentativa Alternativa, con pittogrammi, per la
+          scuola primaria, la didattica inclusiva e i BES — a scuola e a casa.
         </p>
       </div>
     </footer>
