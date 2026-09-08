@@ -62,23 +62,14 @@ export function ChiSiamo() {
       <h1>Chi siamo</h1>
       <div className="about-grid">
         <article className="panel">
-          <h2>Il progetto</h2>
+          <h2>Progetto di Didattica Inclusiva in CAA</h2>
           <p>
-            Placeholder. Questo spazio racconta chi scrive e pubblica i libri:
-            un progetto piccolo, pensato per insegnanti, famiglie e operatori
-            che cercano materiali in CAA già pronti, rispettosi e facili da
-            usare in classe o a casa.
+          Questo progetto nasce per rispondere ai bisogni educativi speciali nella scuola primaria, realizzando libri didattici illustrati in Comunicazione Aumentativa e Alternativa (CAA). L'obiettivo principale è facilitare l'accesso all'apprendimento di tutte le discipline scolastiche, trasformando i concetti complessi in contenuti chiari, visivi e accessibili. Ogni volume è progettato per supportare la comprensione e l'autonomia di ogni alunno, garantendo a tutti la possibilità di studiare insieme.
           </p>
+
+          <h2>Un Supporto Concreto per l'Apprendimento</h2>
           <p>
-            Placeholder. L’idea è semplice: testi brevi, pittogrammi chiari,
-            strumenti da fotocopiare o plastificare, senza promettere ricette
-            magiche. Ogni bambino comunica a modo suo; i libri vogliono essere
-            un ponte, non un protocollo unico.
-          </p>
-          <p>
-            Placeholder. Qui potrai inserire la presentazione dell’autrice o
-            del gruppo di lavoro, eventuali collaborazioni con scuole e
-            servizi, e come vengono scelti i simboli.
+          Attraverso l'uso mirato di simboli visivi e testi semplificati, il progetto offre materiali operativi per le materie della scuola primaria, riducendo le difficoltà di decodifica e favorendo la partecipazione attiva in classe. Strumenti inclusivi pensati per valorizzare le capacità di ciascuno, abbattere le barriere cognitive e rendere lo studio quotidiano un'esperienza accessibile a tutti gli studenti.
           </p>
         </article>
 
