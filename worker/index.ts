@@ -15,12 +15,28 @@ function wantsHtml(request: Request): boolean {
   return accept.includes("text/html");
 }
 
+function unavailablePage(): Response {
+  return new Response("Pagina non disponibile.", {
+    status: 503,
+    headers: { "Content-Type": "text/plain; charset=utf-8" },
+  });
+}
+
+async function fetchAsset(env: Env, request: Request): Promise<Response> {
+  try {
+    if (!env.ASSETS?.fetch) return unavailablePage();
+    return await env.ASSETS.fetch(request);
+  } catch {
+    return unavailablePage();
+  }
+}
+
 async function serveBookPage(request: Request, env: Env, slug: string): Promise<Response> {
-  const asset = await env.ASSETS.fetch(request);
+  const asset = await fetchAsset(env, request);
   try {
     const book = await getBookBySlug(env, slug);
     if (!book) return asset;
-    const html = injectBookMeta(await asset.text(), book);
+    const html = injectBookMeta(await asset.clone().text(), book);
     const headers = new Headers(asset.headers);
     headers.set("Content-Type", "text/html; charset=utf-8");
     return new Response(html, { status: asset.status, headers });
@@ -51,7 +67,7 @@ export default {
       if (pageSlug !== null && request.method === "GET" && wantsHtml(request)) {
         return serveBookPage(request, env, pageSlug);
       }
-      return env.ASSETS.fetch(request);
+      return fetchAsset(env, request);
     }
 
     return json({ ok: false, error: "Not found." }, 404);
