@@ -498,24 +498,26 @@ main {
 .preview-lightbox {
   position: fixed;
   inset: 0;
-  z-index: 80;
+  z-index: 200;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.25rem;
-  background: rgb(27 42 107 / 0.82);
+  padding: 1.5rem;
+  background: rgb(8 10 18 / 0.58);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }
 
 .preview-lightbox img {
-  max-width: min(92vw, 900px);
-  max-height: 88vh;
+  max-width: min(92vw, 920px);
+  max-height: min(86dvh, calc(100dvh - 3rem));
   width: auto;
   height: auto;
   object-fit: contain;
   border: 4px solid var(--navy);
   border-radius: 1rem;
   background: var(--paper);
-  box-shadow: var(--shadow);
+  box-shadow: 0 18px 50px rgb(0 0 0 / 0.45);
 }
 
 .preview-lightbox-close {
@@ -524,6 +526,11 @@ main {
   right: 1rem;
   background: var(--giallo);
   z-index: 1;
+  min-height: 44px;
+}
+
+body.preview-lightbox-open {
+  overflow: hidden;
 }
 
 .book-layout {
@@ -973,6 +980,20 @@ textarea {
 
   .preview-thumb img {
     height: 11.5rem;
+  }
+
+  .preview-lightbox {
+    padding: 1rem;
+  }
+
+  .preview-lightbox img {
+    max-width: 94vw;
+    max-height: min(82dvh, calc(100dvh - 2.5rem));
+  }
+
+  .preview-lightbox-close {
+    top: 0.65rem;
+    right: 0.65rem;
   }
 }
 

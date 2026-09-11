@@ -1,4 +1,5 @@
 import { useEffect, useId, useState } from "react";
+import { createPortal } from "react-dom";
 
 type Props = {
   paths: string[];
@@ -18,9 +19,11 @@ export function BookPreview({ paths, titolo }: Props) {
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    document.body.classList.add("preview-lightbox-open");
     window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = previousOverflow;
+      document.body.classList.remove("preview-lightbox-open");
       window.removeEventListener("keydown", onKey);
     };
   }, [aperto]);
@@ -51,24 +54,34 @@ export function BookPreview({ paths, titolo }: Props) {
         ))}
       </ul>
 
-      {aperta ? (
-        <div
-          className="preview-lightbox"
-          role="dialog"
-          aria-modal="true"
-          aria-label={`Pagina di anteprima di ${titolo}`}
-          onClick={() => setAperto(null)}
-        >
-          <button type="button" className="preview-lightbox-close btn">
-            Chiudi
-          </button>
-          <img
-            src={aperta}
-            alt={`Pagina di anteprima di ${titolo}`}
-            onClick={(event) => event.stopPropagation()}
-          />
-        </div>
-      ) : null}
+      {aperta
+        ? createPortal(
+            <div
+              className="preview-lightbox"
+              role="dialog"
+              aria-modal="true"
+              aria-label={`Pagina di anteprima di ${titolo}`}
+              onClick={() => setAperto(null)}
+            >
+              <button
+                type="button"
+                className="preview-lightbox-close btn"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setAperto(null);
+                }}
+              >
+                Chiudi
+              </button>
+              <img
+                src={aperta}
+                alt={`Pagina di anteprima di ${titolo}`}
+                onClick={(event) => event.stopPropagation()}
+              />
+            </div>,
+            document.body,
+          )
+        : null}
     </div>
   );
 }
