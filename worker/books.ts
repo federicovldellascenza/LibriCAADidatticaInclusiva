@@ -31,6 +31,7 @@ export type LibroDto = {
   colore: (typeof COLORI)[number];
   copertina?: string;
   dataPubblicazione?: string;
+  anteprime: string[];
 };
 
 type BookRow = {
@@ -107,6 +108,7 @@ function mapRow(row: BookRow): LibroDto | null {
     colore: COLORI[Math.abs(id - 1) % COLORI.length],
     copertina,
     dataPubblicazione,
+    anteprime: [],
   };
 }
 
@@ -147,6 +149,23 @@ export async function handleBooksGet(env: Env): Promise<Response> {
   }
 }
 
+async function selectPreviewPaths(db: D1Database, bookId: number): Promise<string[]> {
+  if (!bookId) return [];
+  try {
+    const result = await db
+      .prepare(
+        "SELECT path_img FROM preview_books_images WHERE book_id = ? ORDER BY id",
+      )
+      .bind(bookId)
+      .all<{ path_img?: unknown }>();
+    return (result.results ?? [])
+      .map((row) => asText(row.path_img))
+      .filter((path) => path.length > 0);
+  } catch {
+    return [];
+  }
+}
+
 export async function getBookBySlug(
   env: Env,
   slugParam: string,
@@ -167,8 +186,12 @@ export async function getBookBySlug(
   }
 
   const book = row ? mapRow(row) : null;
-  if (!book || book.slug !== slug) return null;
-  return book;
+  if (!row || !book || book.slug !== slug) return null;
+
+  return {
+    ...book,
+    anteprime: await selectPreviewPaths(env.DB, asId(row.id)),
+  };
 }
 
 export async function handleBookBySlugGet(env: Env, slugParam: string): Promise<Response> {

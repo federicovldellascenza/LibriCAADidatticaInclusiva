@@ -13,6 +13,8 @@ export type Libro = {
   copertina?: string;
   /** ISO date da D1 (`data_publishing`), es. "2026-09-04". */
   dataPubblicazione?: string;
+  /** Path delle pagine di anteprima (`preview_books_images.path_img`). */
+  anteprime: string[];
 };
 
 const COLORI: ColoreLibro[] = ["blu", "giallo", "verde", "rosso"];
@@ -54,6 +56,7 @@ export function mapApiLibro(raw: unknown): Libro | null {
     colore: asColore(row.colore),
     copertina,
     dataPubblicazione,
+    anteprime: asStringArray(row.anteprime),
   };
 }
 

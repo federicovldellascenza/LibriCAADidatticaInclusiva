@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { HtmlContent } from "../components/HtmlContent";
 import { JsonLd } from "../components/JsonLd";
 import { CoverPlaceholder } from "../components/CoverPlaceholder";
+import { BookPreview } from "../components/BookPreview";
 import { formatDataPubblicazione } from "../data/libri";
 import { useLibro } from "../hooks/useLibri";
 import { usePageMeta } from "../hooks/usePageMeta";
@@ -102,7 +103,9 @@ export function Libro() {
         </div>
       </div>
 
-      {libro.temi.length > 0 || libro.strumenti.length > 0 ? (
+      {libro.temi.length > 0 ||
+      libro.strumenti.length > 0 ||
+      libro.anteprime.length > 0 ? (
         <section className="panel panel-spaced">
           {libro.temi.length > 0 ? (
             <>
@@ -124,6 +127,7 @@ export function Libro() {
               </ul>
             </>
           ) : null}
+          <BookPreview paths={libro.anteprime} titolo={libro.titolo} />
         </section>
       ) : null}
     </article>
