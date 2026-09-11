@@ -19,7 +19,7 @@ export function Home() {
         <span className="hero-kicker">Didattica inclusiva</span>
         <h1 id="titolo-sito">Libri in CAA per la Didattica Inclusiva</h1>
         <p>
-        Strumenti editoriali pensati per rendere i saperi disciplinari accessibili a tutti. 
+        Strumenti editoriali pensati per rendere i Saperi disciplinari accessibili a tutti. 
         Grazie all'integrazione di simboli e testi fluidi, 
         trasformano la lettura in un'esperienza inclusiva che azzera le barriere 
         e restituisce a ogni alunno il piacere e l'autonomia dell'apprendimento.
@@ -92,7 +92,7 @@ export function Home() {
           <div className="featured-copy panel">
             <p>
               In evidenza, due copertine. Il catalogo completo — con temi,
-              strumenti e link Amazon — sta nella pagina Libri, da scorrere
+              strumenti e link Amazon — si trova nella pagina Libri, da scorrere
               in orizzontale come uno scaffale.
             </p>
             <Link className="btn btn-amazon" to="/libri">

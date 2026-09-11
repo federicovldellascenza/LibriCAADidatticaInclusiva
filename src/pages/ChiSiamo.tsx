@@ -64,7 +64,7 @@ export function ChiSiamo() {
         <article className="panel">
           <h2>Progetto di Didattica Inclusiva in CAA</h2>
           <p>
-          Questo progetto nasce per rispondere ai bisogni educativi speciali nella scuola primaria, realizzando libri didattici illustrati in Comunicazione Aumentativa e Alternativa (CAA). L'obiettivo principale è facilitare l'accesso all'apprendimento di tutte le discipline scolastiche, trasformando i concetti complessi in contenuti chiari, visivi e accessibili. Ogni volume è progettato per supportare la comprensione e l'autonomia di ogni alunno, garantendo a tutti la possibilità di studiare insieme.
+          Questo progetto nasce per rispondere ai bisogni educativi speciali nella Scuola Primaria, realizzando libri didattici illustrati in Comunicazione Aumentativa e Alternativa (CAA). L'obiettivo principale è facilitare l'accesso all'apprendimento di tutte le discipline scolastiche, trasformando i concetti complessi in contenuti chiari, visivi e accessibili. Ogni volume è progettato per supportare la comprensione e l'autonomia di ogni alunno, garantendo a tutti la possibilità di studiare insieme.
           </p>
 
           <h2>Un Supporto Concreto per l'Apprendimento</h2>
